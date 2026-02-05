@@ -29,7 +29,7 @@ class SQLiteHandler:
         with Session(SQLiteHandler.ENGINE) as session:
             yield session
     
-    SessionDep = Annotated[Session, Depends(get_session)]
+    SessionDep = Annotated[Session, Depends(get_session)]   # TODO: Move?
     
     @staticmethod
     def import_csv_data(csv_file_path: str):
@@ -43,8 +43,8 @@ class SQLiteHandler:
                         destination=row['DESTINATION'],
                         origin_port_code=row['ORIGIN_PORT_CODE'],
                         destination_port_code=row['DESTINATION_PORT_CODE'],
-                        # NOTE: Typo in following CSV header.
-                        service_version_and_roundtrip_identifiers=row['SERVICE_VERSION_AND_ROUNDTRIP_IDENTFIERS'],  
+                        # NOTE: Typo in following CSV header is propagated.
+                        service_version_and_roundtrip_identfiers=row['SERVICE_VERSION_AND_ROUNDTRIP_IDENTFIERS'],  
                         origin_service_version_and_master=row['ORIGIN_SERVICE_VERSION_AND_MASTER'],
                         destination_service_version_and_master=row['DESTINATION_SERVICE_VERSION_AND_MASTER'],
                         origin_at_utc=datetime.fromisoformat(row['ORIGIN_AT_UTC']),

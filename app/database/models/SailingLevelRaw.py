@@ -10,7 +10,7 @@ class SailingLevelRaw(SQLModel, table=True):    # TODO: Add constraints.
     destination: str
     origin_port_code: str
     destination_port_code: str
-    service_version_and_roundtrip_identifiers: str
+    service_version_and_roundtrip_identfiers: str
     origin_service_version_and_master: str
     destination_service_version_and_master: str
     origin_at_utc: datetime
