@@ -12,11 +12,12 @@ from app.database.queries.capacity import CAPACITY
 
 app = FastAPI()
 
-SessionDep = Annotated[Session, Depends(SQLiteHandler.get_session)]
+database = SQLiteHandler()
+SessionDep = Annotated[Session, Depends(database.get_session)]
 
 @app.on_event('startup')    # TODO: Use lifespan event handlers.
 def on_startup():
-    SQLiteHandler.init_database()
+    database.load_data()
 
 @app.get('/capacity')
 def get_capacity(session: SessionDep, date_from: date, date_to: date) -> list[WeeklyCapacity]:   # TODO: Add constraints?

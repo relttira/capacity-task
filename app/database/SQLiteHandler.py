@@ -12,26 +12,24 @@ class SQLiteHandler:
     DATABASE_DIR = Path(__file__).parent.resolve()
     INIT_DATA_PATH = DATABASE_DIR / 'init_data' / 'sailing_level_raw.csv'
 
-    SQLITE_FILE_NAME = 'database.db'
-    SQLITE_URL = f'sqlite:///{DATABASE_DIR / SQLITE_FILE_NAME}'     # TODO: Move constants to a config?
+    SQLITE_FILE_NAME = 'database.db'    # TODO: Move constants to a config?
+    SQLITE_URL = f'sqlite:///{DATABASE_DIR / SQLITE_FILE_NAME}'
     CONNECT_ARGS = {'check_same_thread': False}
 
-    ENGINE = create_engine(SQLITE_URL, connect_args=CONNECT_ARGS)
+    def __init__(self):
+        self.engine = create_engine(SQLiteHandler.SQLITE_URL, connect_args=SQLiteHandler.CONNECT_ARGS)
     
-    @staticmethod
-    def init_database() -> None:
-        SQLModel.metadata.drop_all(SQLiteHandler.ENGINE)
-        SQLModel.metadata.create_all(SQLiteHandler.ENGINE)
-        SQLiteHandler.import_csv_data(str(SQLiteHandler.INIT_DATA_PATH))
+    def load_data(self) -> None:
+        SQLModel.metadata.drop_all(self.engine)
+        SQLModel.metadata.create_all(self.engine)
+        self.import_csv_data(str(self.INIT_DATA_PATH))
 
-    @staticmethod
-    def get_session() -> Generator[Session, None, None]:
-        with Session(SQLiteHandler.ENGINE) as session:
+    def get_session(self) -> Generator[Session, None, None]:
+        with Session(self.engine) as session:
             yield session
     
-    @staticmethod
-    def import_csv_data(csv_file_path: str):
-        with Session(SQLiteHandler.ENGINE) as session:
+    def import_csv_data(self, csv_file_path: str):
+        with Session(self.engine) as session:
             with open(csv_file_path, mode='r', encoding='utf-8') as f:
                 reader = DictReader(f)
                 sailings = []
