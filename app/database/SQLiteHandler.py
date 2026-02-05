@@ -28,7 +28,7 @@ class SQLiteHandler:
         with Session(self.engine) as session:
             yield session
     
-    def import_csv_data(self, csv_file_path: str):
+    def import_csv_data(self, csv_file_path: str) -> None:
         with Session(self.engine) as session:
             with open(csv_file_path, mode='r', encoding='utf-8') as f:
                 reader = DictReader(f)
