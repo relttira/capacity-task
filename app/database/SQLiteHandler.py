@@ -37,7 +37,8 @@ class SQLiteHandler:
         with Session(SQLiteHandler.ENGINE) as session:
             with open(csv_file_path, mode='r', encoding='utf-8') as f:
                 reader = DictReader(f)
-                
+                sailings = []
+
                 for row in reader:
                     sailing = SailingLevelRaw(
                         origin=row['ORIGIN'],
@@ -51,6 +52,7 @@ class SQLiteHandler:
                         origin_at_utc=datetime.fromisoformat(row['ORIGIN_AT_UTC']),
                         offered_capacity_teu=int(row['OFFERED_CAPACITY_TEU'])
                     )
-                    session.add(sailing)
+                    sailings.append(sailing)
                 
-                session.commit()
+            session.add_all(sailings)
+            session.commit()
