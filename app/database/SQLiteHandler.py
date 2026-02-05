@@ -6,7 +6,7 @@ from typing import Annotated
 from fastapi import Depends
 from sqlmodel import Session, create_engine, SQLModel
 
-from app.database.models import SailingLevelRaw
+from app.database.models.SailingLevelRaw import SailingLevelRaw
 
 
 class SQLiteHandler:
