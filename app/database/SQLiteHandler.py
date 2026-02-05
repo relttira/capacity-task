@@ -14,7 +14,7 @@ class SQLiteHandler:
     INIT_DATA_PATH = DATABASE_DIR / 'init_data' / 'sailing_level_raw.csv'
 
     SQLITE_FILE_NAME = 'database.db'    # TODO: Store in database directory?
-    SQLITE_URL = f'sqlite:///{SQLITE_FILE_NAME}'    # TODO: Move constants to a config?
+    SQLITE_URL = f'sqlite:///{DATABASE_DIR / SQLITE_FILE_NAME}'     # TODO: Move constants to a config?
     CONNECT_ARGS = {'check_same_thread': False}
 
     ENGINE = create_engine(SQLITE_URL, connect_args=CONNECT_ARGS)
