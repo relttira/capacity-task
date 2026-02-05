@@ -1,9 +1,8 @@
 from csv import DictReader
 from datetime import datetime
 from pathlib import Path
-from typing import Annotated, Generator
+from typing import Generator
 
-from fastapi import Depends
 from sqlmodel import Session, create_engine, SQLModel
 
 from app.database.models.SailingLevelRaw import SailingLevelRaw
@@ -29,8 +28,6 @@ class SQLiteHandler:
     def get_session() -> Generator[Session, None, None]:
         with Session(SQLiteHandler.ENGINE) as session:
             yield session
-    
-    SessionDep = Annotated[Session, Depends(get_session)]   # TODO: Move?
     
     @staticmethod
     def import_csv_data(csv_file_path: str):
