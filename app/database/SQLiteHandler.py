@@ -11,7 +11,7 @@ from app.database.models.SailingLevelRaw import SailingLevelRaw
 
 class SQLiteHandler:
     DATABASE_DIR = Path(__file__).parent.resolve()
-    INIT_DATA_PATH = DATABASE_DIR / 'sailing_level_raw.csv'
+    INIT_DATA_PATH = DATABASE_DIR / 'init_data' / 'sailing_level_raw.csv'
 
     SQLITE_FILE_NAME = 'database.db'    # TODO: Store in database directory?
     SQLITE_URL = f'sqlite:///{SQLITE_FILE_NAME}'    # TODO: Move constants to a config?
