@@ -5,7 +5,7 @@ from fastapi import Depends, FastAPI
 from sqlalchemy.engine.cursor import CursorResult
 from sqlmodel import Session
 
-from app.api.models.WeeklyCapacity import WeeklyCapacity
+from app.api.models.WeeklyCapacityAverage import WeeklyCapacityAverage
 from app.database.SQLiteHandler import SQLiteHandler
 from app.database.queries.capacity import CAPACITY
 
@@ -20,7 +20,7 @@ def on_startup():
     database.load_data()
 
 @app.get('/capacity')    # TODO: Document endpoint and tighten query parameter constraints.
-def get_capacity(session: SessionDep, date_from: date, date_to: date) -> list[WeeklyCapacity]:
+def get_capacity(session: SessionDep, date_from: date, date_to: date) -> list[WeeklyCapacityAverage]:
     params = {'date_from': date_from, 'date_to': date_to}
     result: CursorResult = session.exec(statement=CAPACITY, params=params)    # TODO: Address Pylance overload issue?
-    return [WeeklyCapacity(**row) for row in result.mappings()]
+    return [WeeklyCapacityAverage(**row) for row in result.mappings()]
