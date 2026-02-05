@@ -8,7 +8,8 @@ from fastapi.testclient import TestClient
 from app.api.main import app
 
 
-# TODO: Polish and document tests.
+# TODO: Polish and document tests - code quality is lacking.
+# TODO: Address pytest warnings.
 
 client = TestClient(app)
 INIT_DATA_PATH = Path(__file__).parent.parent / 'app' / 'database' / 'init_data' / 'sailing_level_raw.csv'
@@ -42,11 +43,11 @@ def test_single_week_range():
     assert len(body) == 1
 
 def _compute_expected_from_csv(date_from: date, date_to: date):
-    """Replicate the SQL logic in pure Python from the CSV."""
+    """Replicate the SQL capacity query logic in pure Python with the CSV."""
 
     voyage_key_to_latest = {}
 
-    # Parse CSV and filter:
+    # Parse CSV and deduplicate:
     with open(INIT_DATA_PATH, mode='r', encoding='utf-8') as f:
         for row in DictReader(f):
             if row['ORIGIN'] != 'china_main' or row['DESTINATION'] != 'north_europe_main':

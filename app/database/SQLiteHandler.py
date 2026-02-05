@@ -8,11 +8,11 @@ from sqlmodel import Session, create_engine, SQLModel
 from app.database.models.SailingLevelRaw import SailingLevelRaw
 
 
-class SQLiteHandler:
+class SQLiteHandler:    # TODO: Improve brittleness of constants and move them to a config?
     DATABASE_DIR = Path(__file__).parent.resolve()
     INIT_DATA_PATH = DATABASE_DIR / 'init_data' / 'sailing_level_raw.csv'
 
-    SQLITE_FILE_NAME = 'database.db'    # TODO: Move constants to a config?
+    SQLITE_FILE_NAME = 'database.db'
     SQLITE_URL = f'sqlite:///{DATABASE_DIR / SQLITE_FILE_NAME}'
     CONNECT_ARGS = {'check_same_thread': False}
 

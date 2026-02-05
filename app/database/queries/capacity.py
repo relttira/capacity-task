@@ -1,6 +1,8 @@
 from sqlmodel import text
 
 
+# TODO: Improve endpoint latency with precomputation and indexes?
+
 CAPACITY = text(
     """
         WITH UniqueVoyages AS (

@@ -19,8 +19,8 @@ SessionDep = Annotated[Session, Depends(database.get_session)]
 def on_startup():
     database.load_data()
 
-@app.get('/capacity')
-def get_capacity(session: SessionDep, date_from: date, date_to: date) -> list[WeeklyCapacity]:   # TODO: Add constraints?
+@app.get('/capacity')    # TODO: Document endpoint and tighten query parameter constraints.
+def get_capacity(session: SessionDep, date_from: date, date_to: date) -> list[WeeklyCapacity]:
     params = {'date_from': date_from, 'date_to': date_to}
-    result: CursorResult = session.exec(statement=CAPACITY, params=params)
+    result: CursorResult = session.exec(statement=CAPACITY, params=params)    # TODO: Address Pylance overload issue?
     return [WeeklyCapacity(**row) for row in result.mappings()]

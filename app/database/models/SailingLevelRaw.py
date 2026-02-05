@@ -15,3 +15,4 @@ class SailingLevelRaw(SQLModel, table=True):    # TODO: Add constraints.
     destination_service_version_and_master: str
     origin_at_utc: datetime
     offered_capacity_teu: int
+    # TODO: Add created_at field.
