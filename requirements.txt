@@ -1,2 +1,3 @@
 fastapi[standard]==0.128.1
 sqlmodel==0.0.32
+pytest==9.0.2
