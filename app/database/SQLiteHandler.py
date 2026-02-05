@@ -1,7 +1,7 @@
 from csv import DictReader
 from datetime import datetime
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Generator
 
 from fastapi import Depends
 from sqlmodel import Session, create_engine, SQLModel
@@ -26,7 +26,7 @@ class SQLiteHandler:
         SQLiteHandler.import_csv_data(str(SQLiteHandler.INIT_DATA_PATH))
 
     @staticmethod
-    def get_session():  # TODO: Add return type?
+    def get_session() -> Generator[Session, None, None]:
         with Session(SQLiteHandler.ENGINE) as session:
             yield session
     
