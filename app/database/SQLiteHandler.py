@@ -21,6 +21,7 @@ class SQLiteHandler:
     
     @staticmethod
     def init_database() -> None:
+        SQLModel.metadata.drop_all(SQLiteHandler.ENGINE)
         SQLModel.metadata.create_all(SQLiteHandler.ENGINE)
         SQLiteHandler.import_csv_data(str(SQLiteHandler.INIT_DATA_PATH))
 
