@@ -13,7 +13,7 @@ class SQLiteHandler:
     DATABASE_DIR = Path(__file__).parent.resolve()
     INIT_DATA_PATH = DATABASE_DIR / 'init_data' / 'sailing_level_raw.csv'
 
-    SQLITE_FILE_NAME = 'database.db'    # TODO: Store in database directory?
+    SQLITE_FILE_NAME = 'database.db'
     SQLITE_URL = f'sqlite:///{DATABASE_DIR / SQLITE_FILE_NAME}'     # TODO: Move constants to a config?
     CONNECT_ARGS = {'check_same_thread': False}
 
